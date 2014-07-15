@@ -1,5 +1,12 @@
 require 'little_decorator/helper'
-ActiveSupport.on_load(:action_controller) { include LittleDecorator::Helper }
+
+ActiveSupport.on_load :action_controller do
+  delegate :decorate, :d, to: :view_context
+end
+
+ActiveSupport.on_load :action_view do
+  include LittleDecorator::Helper
+end
 
 class LittleDecorator
   attr_reader :record, :view
